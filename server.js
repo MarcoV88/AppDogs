@@ -7,8 +7,8 @@ const PORT = 3000;
 app.use(express.json());
 
 // Rutas de la API
-app.use("/api/register", registerRoutes);
-app.use("/api/login", loginRoutes);
+app.use("/register", registerRoutes);
+app.use("/login", loginRoutes);
 
 // 404
 app.use((req, res) => {

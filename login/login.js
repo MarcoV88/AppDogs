@@ -36,7 +36,7 @@ register.addEventListener("click", function() {
     const data = { usuario, correo, contrasena };
     const JsonEnv = JSON.stringify(data);
     // Enviamos una solicitud "POST" al endpoint del registro
-    fetch("http://localhost:3000/registro", {
+    fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JsonEnv

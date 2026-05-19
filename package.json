@@ -21,5 +21,8 @@
   "homepage": "https://github.com/MarcoV88/AppDogs#readme",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
