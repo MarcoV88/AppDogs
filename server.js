@@ -1,0 +1,21 @@
+const express = require("express");
+const cors = require("cors")
+const registerRoutes = require("./routes/registerRoutes");
+const loginRoutes = require("./routes/loginRoutes");
+const app = express();
+const PORT = 3000;
+app.use(cors());
+app.use(express.json());
+
+// Rutas de la API
+app.use("/register", registerRoutes);
+app.use("/login", loginRoutes);
+
+// 404
+app.use((req, res) => {
+  res.status(404).json({ mensaje: "Ruta no encontrada" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor en http://localhost:${PORT}`);
+});
