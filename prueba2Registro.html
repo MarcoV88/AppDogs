@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <input type="text" id="regUsuario" placeholder="Usuario">
+    <input type="email" id="regCorreo" placeholder="Correo">
+    <input type="password" id="regPassword" placeholder="Contraseña">
+    <button id="register">Registrarse</button>
+    
+    <div id="mensaje" style="display:none; background:green; color:white; padding:20px;"></div>
+    
+    <script>
+        document.getElementById("register").addEventListener("click", function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('regUsuario').value;
+            const correo = document.getElementById('regCorreo').value;
+            const contrasena = document.getElementById('regPassword').value;
+            
+            fetch("http://localhost:3000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ usuario, correo, contrasena })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const div = document.getElementById("mensaje");
+                div.style.display = "block";
+                div.innerText = data.recibido;
+                
+                if (data.status === 201) {
+                    setTimeout(() => {
+                        window.location.href = "../app/app.html";
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

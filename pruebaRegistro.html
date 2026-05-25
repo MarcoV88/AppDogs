@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba Registro</title>
+</head>
+<body>
+    <h1>Prueba de Registro</h1>
+    <input type="text" id="regUsuario" placeholder="Usuario">
+    <input type="email" id="regCorreo" placeholder="Correo">
+    <input type="password" id="regPassword" placeholder="Contraseña">
+    <button id="register">Registrarse</button>
+    
+    <div id="cajaRegister" style="display:none; position:fixed; top:50%; left:50%; background:white; padding:20px; border:1px solid black;">
+        <p id="aceptado"></p>
+        <button id="cerrarModalRegister">Cerrar</button>
+    </div>
+    
+    <script>
+        const register = document.getElementById("register");
+        const cajaRegister = document.getElementById("cajaRegister");
+        const btnCerrarRegister = document.getElementById("cerrarModalRegister");
+        
+        function cerrarModal() {
+            cajaRegister.style.display = "none";
+            document.getElementById("aceptado").innerText = "";
+        }
+        
+        btnCerrarRegister.addEventListener("click", cerrarModal);
+        
+        register.addEventListener("click", function() {
+            console.log("1. Click en registro");
+            
+            const usuario = document.getElementById('regUsuario').value.trim();
+            const correo = document.getElementById('regCorreo').value.trim();
+            const contrasena = document.getElementById('regPassword').value.trim();
+            
+            console.log("2. Datos:", {usuario, correo});
+            
+            fetch("http://localhost:3000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ usuario, correo, contrasena })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("3. Respuesta:", data);
+                
+                cajaRegister.style.display = "flex";
+                document.getElementById("aceptado").innerText = data.recibido;
+                
+                if (data.status === 201) {
+                    console.log("4. Éxito - redirigiendo en 2 segundos");
+                    setTimeout(() => {
+                        console.log("5. Redirigiendo...");
+                        // Comenta la redirección para ver si el modal se mantiene
+                        // window.location.href = "../app/app.html";
+                        alert("Redirigiría ahora, pero está desactivado para prueba");
+                    }, 2000);
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    </script>
+</body>
+</html>

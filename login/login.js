@@ -23,7 +23,7 @@ btnCerrarRegister.addEventListener("click", function() {
 });
 btnCerrarLogin.addEventListener("click", function(){
     cerrarModal();
-})
+});
 
 
 // REGISTRO
@@ -46,19 +46,19 @@ register.addEventListener("click", function() {
         console.log('Respuesta del backend:', data);
         
         const mensaje = data.recibido;
+        const status = data.status;
         cajaRegister.style.display = "flex";
         const modalText = document.getElementById("aceptado");
         modalText.innerText = mensaje;
         
-        if (!mensaje.includes("incorrecta || incorrecto")) {
+        if (status === 400 ) {
             
             // Limpiamos los campos del formulario
             document.getElementById('regUsuario').value = "";
             document.getElementById('regCorreo').value = "";
             document.getElementById('regPassword').value = "";
             
-            // NO redirigir
-            return;
+
         } else {
             // Limpiamos los campos y redirigimos al inicio (registro correcto)
             document.getElementById('regUsuario').value = "";
@@ -67,7 +67,7 @@ register.addEventListener("click", function() {
             
             // Aquí se redirige después de 2 segundos
             setTimeout(() => {
-                window.location.href = "../Inicio/inicio.html";
+                window.location.href = "../app/app.html";
             }, 2000);
         }
     })
@@ -117,7 +117,7 @@ iniciar.addEventListener("click", function() {
             
             // Aquí se redirige después de 2 segundos
             setTimeout(() => {
-                window.location.href = "../Inicio/inicio.html";
+                window.location.href = "../app/app.html";
             }, 2000);
         }
     })
